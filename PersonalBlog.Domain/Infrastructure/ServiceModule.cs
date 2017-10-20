@@ -1,4 +1,10 @@
-﻿using Ninject.Modules;
+﻿using System;
+using System.Reflection;
+using Ninject;
+using Ninject.Modules;
+using PersonalBlog.DataAccess.Infrastructure;
+using PersonalBlog.DataAccess.Interfaces;
+using PersonalBlog.DataAccess.UnitOfWork;
 using PersonalBlog.Domain.Interfaces;
 using PersonalBlog.Domain.Services;
 
@@ -8,9 +14,10 @@ namespace PersonalBlog.Domain.Infrastructure
     {
         private readonly string _connectionString;
 
-        public ServiceModule(string connectionString)
+        public ServiceModule(string connectionString) 
         {
             _connectionString = connectionString;
+
         }
 
         public override void Load()
@@ -19,5 +26,6 @@ namespace PersonalBlog.Domain.Infrastructure
             Bind<IBlogService>().To<BlogService>().WithConstructorArgument(_connectionString);
             Bind<IArticleService>().To<ArticleService>().WithConstructorArgument(_connectionString);
         }
+
     }
 }

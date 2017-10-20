@@ -19,9 +19,7 @@ namespace PersonalBlog.Web
         public void Configuration(IAppBuilder appBuilder)
         {
             appBuilder.CreatePerOwinContext<IUserService>(()=> _kernel.Get<IUserService>()); 
-           // appBuilder.CreatePerOwinContext<IBlogService>( () => new BlogService(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
-           // appBuilder.CreatePerOwinContext<IBlogService>( () => _kernel.Get<IBlogService>());
-            appBuilder.CreatePerOwinContext<IArticleService>( () => _kernel.Get<IArticleService>());
+          //  appBuilder.CreatePerOwinContext<IArticleService>( () => _kernel.Get<IArticleService>());
 
             appBuilder.UseCookieAuthentication(new CookieAuthenticationOptions()
             {

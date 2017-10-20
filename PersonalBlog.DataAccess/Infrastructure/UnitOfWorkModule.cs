@@ -12,6 +12,7 @@ namespace PersonalBlog.DataAccess.Infrastructure
         }
         public override void Load()
         {
+
             Bind<IUnitOfWork>().To<UnitOfWork.UnitOfWork>().WithConstructorArgument(_connectionString);
         }
     }

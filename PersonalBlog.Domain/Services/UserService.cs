@@ -18,13 +18,17 @@ namespace PersonalBlog.Domain.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public UserService(string connectionString) 
         {
+            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
             _unitOfWork = new UnitOfWork(connectionString);
         }
         
         public async Task<OperationDetails> CreateAsync(UserDTO userDto)
         {
+            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
+            
             ApplicationUser user = await _unitOfWork.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
@@ -49,6 +53,8 @@ namespace PersonalBlog.Domain.Services
 
         public OperationDetails Create(UserDTO userDto)
         {
+            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
+
             ApplicationUser user =  _unitOfWork.UserManager.FindByEmail(userDto.Email);
             if (user == null)
             {
@@ -76,6 +82,8 @@ namespace PersonalBlog.Domain.Services
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
+            if (userDto == null) throw new ArgumentNullException(nameof(userDto));
+
             ClaimsIdentity claim = null;
             // находим пользователя
             ApplicationUser user = await _unitOfWork.UserManager.FindAsync(userDto.Email, userDto.Password);

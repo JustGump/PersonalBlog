@@ -22,11 +22,9 @@ namespace PersonalBlog.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile(new  DTOMappingProfile());
-            });
-            ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
+            Mapper.Initialize(AutoMapperConfiguration.Initialize());
+
         }
     }
 }

@@ -17,11 +17,13 @@ namespace PersonalBlog.Domain.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public BlogService(string conncectionString)
+     
+          public BlogService(string connectionString)
         {
-            _unitOfWork = new UnitOfWork(conncectionString);
-        }
+            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
 
+            _unitOfWork = new UnitOfWork(connectionString);
+        }
         public void Create(string title, string discription, string userid)
         {
             _unitOfWork.BlogRepository.Create(new Blog()
@@ -35,7 +37,7 @@ namespace PersonalBlog.Domain.Services
 
         public IEnumerable<BlogDTO> GetAll()
         {
-            Mapper.Initialize(m => m.CreateMap<Blog, BlogDTO>());
+            //Mapper.Initialize(m => m.CreateMap<Blog, BlogDTO>());
                 
                
             return Mapper.Map<IEnumerable<Blog>, List<BlogDTO>>(_unitOfWork.BlogRepository.GetAll());

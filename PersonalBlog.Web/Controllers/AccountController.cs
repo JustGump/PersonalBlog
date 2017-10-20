@@ -19,7 +19,6 @@ namespace PersonalBlog.Web.Controllers
         private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
 
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-        //private ApplicationSignInManager _signInManager;
 
         // GET: Account/Login
         [AllowAnonymous]

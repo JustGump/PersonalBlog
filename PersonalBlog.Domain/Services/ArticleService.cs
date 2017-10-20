@@ -16,52 +16,47 @@ namespace PersonalBlog.Domain.Services
     class ArticleService : IArticleService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ArticleService(string connectionString)
+      
+         public ArticleService(string connectionString)
         {
+            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
             _unitOfWork = new UnitOfWork(connectionString);
         }
-
         public void Create(ArticleDTO articleDTO)
         {
+            if (articleDTO == null) throw new ArgumentNullException(nameof(articleDTO));
+            
             var blog = _unitOfWork.BlogRepository.FindByTitle(articleDTO.BlogTitle);
             if (blog == null)
             {
-                blog = new Blog(){Title = articleDTO.BlogTitle, Description = ""};
+                blog = new Blog() { Title = articleDTO.BlogTitle, Description = "" };
             }
-            
+
             Article article = new Article()
             {
                 Blog = blog,
-                Title =  articleDTO.Title,
+                Title = articleDTO.Title,
                 Body = articleDTO.Body,
                 UserProfileId = articleDTO.UserProfileId,
                 Date = DateTime.Now
-                
+
             };
             _unitOfWork.ArticleRepository.Create(article);
             _unitOfWork.Save();
         }
         public IEnumerable<ArticleDTO> GetAll(int count)
         {
-            Mapper.Initialize(m => m.CreateMap<Article, ArticleDTO>()
-                .ForMember("UserName", e => e.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
-                .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name))));
-            return Mapper.Map<IEnumerable<Article>, List<ArticleDTO>>(_unitOfWork.ArticleRepository.GetAll());
+            return Mapper.Map<IEnumerable<Article>, IEnumerable<ArticleDTO>>(_unitOfWork.ArticleRepository.GetAll());
         }
         public IEnumerable<ArticleDTO> GetAll()
-        {    
-               Mapper.Initialize(m => m.CreateMap<Article, ArticleDTO>()
-                   .ForMember("UserName", e => e.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
-                   .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name))));
-            return Mapper.Map<IEnumerable<Article>, List<ArticleDTO>>(_unitOfWork.ArticleRepository.GetAll());
+        {
+            return Mapper.Map<IEnumerable<Article>, IEnumerable<ArticleDTO>>(_unitOfWork.ArticleRepository.GetAll());
         }
 
         public IEnumerable<ArticleDTO> GetByBlog(string blogTitle)
         {
-            Mapper.Initialize(m => m.CreateMap<Article, ArticleDTO>()
-                .ForMember("UserName", e => e.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
-                .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name))));
-            return Mapper.Map<IEnumerable<Article>, List<ArticleDTO>>(_unitOfWork.ArticleRepository.Find(article => article.Blog.Title == blogTitle));
+            if (blogTitle == null) throw new ArgumentNullException(nameof(blogTitle));          
+            return Mapper.Map<IEnumerable<Article>, IEnumerable<ArticleDTO>>(_unitOfWork.ArticleRepository.Find(article => article.Blog.Title == blogTitle));
         }
 
         public void Dispose()

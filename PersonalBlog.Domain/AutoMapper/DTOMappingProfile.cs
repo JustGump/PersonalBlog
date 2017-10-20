@@ -14,13 +14,16 @@ namespace PersonalBlog.Domain.AutoMapper
     {
         public DTOMappingProfile()
         {
-            /*  base.CreateMap<Article, ArticleDTO>()
-                  .ForMember("UserName", cfg => cfg.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
-                  .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name)));*/
-            base.CreateMap<Article, ArticleDTO>();
-            base.CreateMap<ArticleDTO, Article>();
+            base.CreateMap<Article, ArticleDTO>()
+                .ForMember("UserName", cfg => cfg.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
+                .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name)));
+            // base.CreateMap<Article, ArticleDTO>();
+            //base.CreateMap<ArticleDTO, Article>();
+
+            base.CreateMap<Blog, BlogDTO>();
+            base.CreateMap<UserProfile, UserDTO>();
         }
 
-        
+
     }
 }

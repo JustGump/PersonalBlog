@@ -26,18 +26,33 @@ namespace PersonalBlog.DataAccess.Repositories
 
         public Article Get(int id)
         {
-            return _context.Articles.Find(id);
+            var result = _context.Articles
+              /*  .Include(article => article.UserProfile.ApplicationUser)
+                .Include(article => article.Comments)*/
+                .FirstOrDefault(article => article.ArticleId == id);
+
+            return result;
         }
 
         public IEnumerable<Article> GetAll()
         {
-            return _context.Articles.ToList();
+            return _context.Articles
+               /* .Include(article => article.UserProfile.ApplicationUser)
+                .Include(article => article.Comments)*/
+                .OrderByDescending(article => article.Date)
+                .ToList();
         }
 
         
         public IEnumerable<Article> Find(Expression<Func<Article, bool>> predicate)
         {
-            return _context.Articles.Where(predicate).ToList();
+            return _context.Articles
+              /*  .Include(article => article.Blog)
+                .Include(article => article.UserProfile.ApplicationUser)
+                .Include(article => article.Comments)*/
+                .Where(predicate)
+                .OrderByDescending(article => article.Date)
+                .ToList();
         }
 
         public void Update(Article item)

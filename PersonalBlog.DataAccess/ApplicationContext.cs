@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -14,9 +15,13 @@ namespace PersonalBlog.DataAccess
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationContext(string connectionString) : base(connectionString) { }
+        public ApplicationContext(string connectionString) : base(connectionString)
+        {
+            Configuration.LazyLoadingEnabled = true;
+        }
         static ApplicationContext()
         {
+            
             Database.SetInitializer<ApplicationContext>(new DbInitializer());
         }
 

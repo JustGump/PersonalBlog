@@ -1,4 +1,4 @@
-﻿@model PersonalBlog.Web.Models.BlogViewModel
+﻿@model IEnumerable<PersonalBlog.Domain.DataTransferObjects.BlogDTO>
 
 @{
     ViewBag.Title = "Index";
@@ -7,16 +7,17 @@
     <div class="row">
         <h1>Blogs</h1>
         <hr />
-        @foreach (var item in Model.Blogs)
+        @foreach (var item in Model)
         {
             <div class="panel panel-default col-md-12">
                 <div class="panel-body">
                     
-                    <a href="@Url.Action("Articles", "Blog", item.Title)">
-                        <h2>@item.Title</h2>
+                    <a href="@Url.Action("Articles", "Blog", new { blogId = item.BlogId })">
+                        <h2>@item.Title #@item.BlogId</h2>
                     </a>
-                    <hr />
-                    <p>@item.Description</p>                                 
+                    <h2>Articles: @item.ArticlesCount</h2>
+                    <hr/>
+                    <p>Discription:@item.Description </p>                                 
                 </div>
             </div>
         }

@@ -15,6 +15,7 @@ namespace PersonalBlog.Domain.DataTransferObjects
         public DateTime Date { get; set; }
         public string UserProfileId { get; set; }
         public string UserName { get; set; }
+        public List<string> Comments { get; set; }
         public List<string> Tags { get; set; }
     }
 }

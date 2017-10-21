@@ -7,6 +7,7 @@ using AutoMapper;
 using PersonalBlog.DataAccess.Entities;
 using PersonalBlog.DataAccess.Interfaces;
 using PersonalBlog.DataAccess.UnitOfWork;
+using PersonalBlog.Domain.AutoMapper;
 using PersonalBlog.Domain.DataTransferObjects;
 using PersonalBlog.Domain.Interfaces;
 
@@ -16,37 +17,42 @@ namespace PersonalBlog.Domain.Services
         
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        private readonly IMapper _mapper;
      
-          public BlogService(string connectionString)
+        public BlogService(string connectionString)
         {
             if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
 
             _unitOfWork = new UnitOfWork(connectionString);
+            _mapper = new MapperConfiguration(expression => expression.AddProfile(new DTOMappingProfile())).CreateMapper();
         }
-        public void Create(string title, string discription, string userid)
+
+        /// <summary>
+        /// Creates a new blog.
+        /// </summary>
+        /// <param name="blogDTO">  </param>
+        /// <exception cref="ArgumentNullException">
+        ///  if <paramref name="blogDTO"/> is <c>null</c>.
+        /// </exception>
+        public void Create(BlogDTO blogDTO)
         {
+            if (blogDTO == null) throw new ArgumentNullException(nameof(blogDTO));
+
             _unitOfWork.BlogRepository.Create(new Blog()
             {
-                Title = title,
-                Description = discription,               
+                Title = blogDTO.Title,
+                Description = blogDTO.Description,               
             });
             _unitOfWork.Save();
         }
-
-
+       
+        /// <summary>
+        /// Returns all articles.
+        /// </summary>
         public IEnumerable<BlogDTO> GetAll()
         {
-            //Mapper.Initialize(m => m.CreateMap<Blog, BlogDTO>());
-                
-               
-            return Mapper.Map<IEnumerable<Blog>, List<BlogDTO>>(_unitOfWork.BlogRepository.GetAll());
-            /*   Mapper.Initialize(m => m.CreateMap<Blog, BlogDTO>()
-                   .ForMember("Title", e => e.MapFrom(blog => blog.Title))
-                   .ForMember("Description", cfg => cfg.MapFrom(blog => blog.Description)).
-                   ForMember("UserName", cfg => cfg.MapFrom(blog => blog.UserProfile.ApplicationUser.UserName))
-                   .ForMember("Date", cfg => cfg.MapFrom(blog => blog.Date)));
-               return Mapper.Map<IEnumerable<Blog>, List<BlogDTO>>(_unitOfWork.BlogRepository.Find());*/
+            var result = _unitOfWork.BlogRepository.GetAll();
+            return _mapper.Map<IEnumerable<Blog>, IEnumerable<BlogDTO>>(result);          
         }
 
         public void Dispose()

@@ -10,13 +10,9 @@ namespace PersonalBlog.DataAccess.Entities
     {
         public int CommentId { get; set; }
         public string Body { get; set; }
-
-        public UserProfile ProfileId { get; set; }
-        public UserProfile Profile { get; set; }
-
-        public int ArticleId { get; set; }
-        public Article Article { get; set; }
-
+    
+        public virtual UserProfile Profile { get; set; }
+        public virtual Article Article { get; set; }
         public DateTime Date { get; set; }       
     }
 }

@@ -193,6 +193,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModels.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,13 +236,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
     <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Blog\Articles.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Article\CommentArticle.cshtml" />
+    <Content Include="Views\Article\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

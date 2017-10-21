@@ -7,9 +7,9 @@ using PersonalBlog.Domain.DataTransferObjects;
 
 namespace PersonalBlog.Domain.Interfaces
 {
-    public interface IBlogService : IDisposable
+    public interface ICommentService : IDisposable
     {
-        void Create(BlogDTO blogDTO);
-        IEnumerable<BlogDTO> GetAll();
-    }
+        void Create(CommentDTO commentDTO);
+    } 
+ 
 }

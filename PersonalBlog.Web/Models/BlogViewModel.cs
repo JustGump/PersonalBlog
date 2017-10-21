@@ -8,6 +8,9 @@ namespace PersonalBlog.Web.Models
 {
     public class BlogViewModel
     {
-        public IEnumerable<BlogDTO> Blogs { get; set; }
+        public int BlogId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int ArticlesCount { get; set; }  
     }
 }

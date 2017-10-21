@@ -32,12 +32,12 @@ namespace PersonalBlog.DataAccess.Repositories
 
         public IEnumerable<Blog> GetAll()
         {
-            return _context.Blogs.ToList();
+            return _context.Blogs.ToList().OrderBy(blog => blog.Title);
         }
 
         public IEnumerable<Blog> Find(Expression<Func<Blog, bool>> predicate)
         {
-            return _context.Blogs.Where(predicate).ToList();
+            return _context.Blogs.Where(predicate).OrderBy(blog => blog.Title).ToList();
         }
 
         public void Update(Blog item)

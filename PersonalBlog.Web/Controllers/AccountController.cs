@@ -72,7 +72,8 @@ namespace PersonalBlog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-             await SetInitialDataAsync();
+            await SetInitialDataAsync();
+
             if (ModelState.IsValid)
             {
                 UserDTO userDTO = new UserDTO()
@@ -81,20 +82,16 @@ namespace PersonalBlog.Web.Controllers
                     Email = model.Email,
                     Password = model.Password,
                     Role = "user"
-                }; // +passworl role
-                var result = await UserService.CreateAsync(userDTO); // ! async
+                }; 
+
+                var result = await UserService.CreateAsync(userDTO);
 
                 if (result.Succeeded)
                 {
-                    
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("About", "Home");
+                    return RedirectToAction("Index","Home");
                 }
-                //ModelState.AddModelError(result.Property, result.Message); //operationdetails
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

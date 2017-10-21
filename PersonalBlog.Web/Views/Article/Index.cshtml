@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PersonalBlog.Domain.DataTransferObjects.ArticleDTO>
+﻿@model IEnumerable<PersonalBlog.Web.Models.ArticleViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -14,11 +14,20 @@
 
             <a href="#" class="list-group-item">
                
-                <h4 class="list-group-item-heading">@item.Title</h4>
+                <h4 class="list-group-item-heading">@item.Title id:@item.ArticleId</h4>
                 <p class="list-group-item-text">@item.Body</p>
                 <hr style="margin-top: 20px; margin-bottom: 5px"/>
                 <p class="text-muted">@item.UserName @item.Date.ToUniversalTime() </p> 
             </a>
+
+            foreach (var comment in item.Comments)
+             {
+                 <div class="well">
+                     @comment
+                 </div>
+             }
+
+            @Html.ActionLink("Comment","CommentArticle")
         }
     </div>
 

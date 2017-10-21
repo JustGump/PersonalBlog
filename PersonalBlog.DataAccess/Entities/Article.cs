@@ -14,7 +14,7 @@ namespace PersonalBlog.DataAccess.Entities
         public DateTime Date { get; set; }
 
         public int BlogId { get; set; }
-        public Blog Blog { get; set; }
+        public virtual Blog Blog { get; set; }
 
         public string UserProfileId { get; set; }
         public virtual UserProfile UserProfile { get; set; }

@@ -10,8 +10,9 @@ namespace PersonalBlog.Domain.Interfaces
     public interface IArticleService : IDisposable
     {
         void Create(ArticleDTO articleDTO);
-        IEnumerable<ArticleDTO> GetAll(int count);
+        IEnumerable<ArticleDTO> Take(int count);
         IEnumerable<ArticleDTO> GetAll();
-        IEnumerable<ArticleDTO> GetByBlog(string BlogTitle);
+        ArticleDTO GetById(int articleId);
+        IEnumerable<ArticleDTO> GetByBlogId(int blogId);
     }
 }

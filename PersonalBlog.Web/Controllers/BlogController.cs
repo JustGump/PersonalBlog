@@ -25,15 +25,21 @@ namespace PersonalBlog.Web.Controllers
         }
         // GET: Blog
         public ActionResult Index()
-        {
-            BlogViewModel model = new BlogViewModel();
-            model.Blogs = _blogService.GetAll();
-            return View(model);
+        {    
+           var a = _blogService.GetAll();
+            return View(a);
         }
-        
-        public ActionResult Articles(string blogName = "NewTitle")
+
+        /*  public ActionResult Articles(string blogName)
+          {
+              var a = _articleService.GetByBlog(blogName);
+              return View(a);
+          }*/
+
+
+        public ActionResult Articles(int blogId)
         {
-            var a = _articleService.GetByBlog(blogName);
+            var a = _articleService.GetByBlogId(blogId);
             return View(a);
         }
     }

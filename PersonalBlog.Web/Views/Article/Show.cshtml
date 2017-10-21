@@ -1,0 +1,39 @@
+﻿@model PersonalBlog.Web.Models.ArticleViewModel
+
+<div class="container">
+    <div class="row" style="background-color: aqua">
+        <div class="col-lg-8" style="background-color: red">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>@Model.Title</h2>
+                    <p>@Model.Body</p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                
+
+
+                @using (Html.BeginForm("CommentArticle", "Article", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="articleId" value="@Model.ArticleId"/>
+
+                    <textarea class="form-control" name="commentBody" rows="3" id="textArea" style="margin: 0px 2.15625px 0px 0px; width: 421px; height: 189px;"></textarea>
+                    <input type="submit" value="Отправить"/>
+                }
+
+
+                <div class="panel-body">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <div class="well well-sm">
+                            @comment
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</div>
+

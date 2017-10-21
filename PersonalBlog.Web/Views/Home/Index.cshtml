@@ -12,42 +12,21 @@
         <div class="img"></div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6" id="billboardText">
                     <h1>Start a blog today</h1>
                     <p>
                         Be a part of wonderful community and share your stories with others.
                     </p>
-                    
+                    @Html.ActionLink("Create Account", "Register","Account", null, new{ @class = "btn btn-primary btn-lg" })
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6" >
                         <form class="form-horizontal ">
-                            <fieldset>
-                                <div class="form-group">
-                                    <label for="inputEmail" class="col-lg-5 control-label">Email</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword" class="col-lg-5 control-label">Password</label>
-                                    <div class="col-lg-7">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword" class="col-lg-5 control-label">Confirm</label>
-                                    <div class="col-lg-7">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-
-                                    </div>
-                                </div>
-
+                            <fieldset>                             
                                 <div class="form-group">
                                     <div class="col-lg-7 col-lg-offset-5">
-                                        <button type="submit" class="btn btn-primary">Create Account</button>
+                                   
                                     </div>
 
                                 </div>
@@ -72,40 +51,7 @@
                 </div>
                 <div class="modal-body">
                     <!--partial-->
-                    @using (Html.BeginForm("Login", "Account"))
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-horizontal">
-                            <h4>LoginViewModel</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default" id="submitform" />
-                                </div>
-                            </div>
-                        </div>
-                    }
+                   
 
                 </div>
                 <div class="modal-footer">
@@ -118,24 +64,25 @@
 
 }
 
+
 <div class="container">
     <div class="row">
         <h1>Latest posts</h1>
         <hr />
        
-            <div class="panel panel-default col-md-12">
-                <div class="panel-body">
-                    <p class="text-muted">2 часа назад Mayya Gavasheli</p>
-                    <a href="#">
-                        <h2>Инфа об авторизации</h2>
-                    </a>
-                    <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-                    <hr />
-                    <span class="label label-default">Fun</span>
-                    <span class="label label-default">Summer</span>
-                    <span class="label label-default">bbq</span>
-                </div>
+        <div class="panel panel-default col-md-12">
+            <div class="panel-body">
+                <p class="text-muted">2 часа назад Mayya Gavasheli</p>
+                <a href="#">
+                    <h2>Инфа об авторизации</h2>
+                </a>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <hr />
+                <span class="label label-default">Fun</span>
+                <span class="label label-default">Summer</span>
+                <span class="label label-default">bbq</span>
             </div>
+        </div>
        
         <div class="panel panel-default col-md-12">
             <div class="panel-body">

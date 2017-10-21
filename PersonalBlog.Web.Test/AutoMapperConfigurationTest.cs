@@ -19,7 +19,7 @@ namespace PersonalBlog.Web.Test
         public void Initialization_ProjectingDataToDTO_ShouldReturnTrue()
         {
             Article article = new Article(){Title = "Andrew"};
-            Mapper.Initialize(AutoMapperConfiguration.Initialize());
+         //   Mapper.Initialize(AutoMapperConfiguration.Initialize());
 
             var a = Mapper.Map<Article, ArticleDTO>(article);
 
@@ -35,7 +35,7 @@ namespace PersonalBlog.Web.Test
               new  Article() { Title = "Andrew" },
               
             }; 
-            Mapper.Initialize(AutoMapperConfiguration.Initialize());
+            //Mapper.Initialize(AutoMapperConfiguration.Initialize());
 
             var a = Mapper.Map<IEnumerable<Article>, IEnumerable<ArticleDTO>>(articles);
             var result = a.Select(dto => dto.Title).FirstOrDefault();

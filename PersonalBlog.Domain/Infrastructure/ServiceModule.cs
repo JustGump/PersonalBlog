@@ -25,6 +25,8 @@ namespace PersonalBlog.Domain.Infrastructure
             Bind<IUserService>().To<UserService>().WithConstructorArgument(_connectionString);
             Bind<IBlogService>().To<BlogService>().WithConstructorArgument(_connectionString);
             Bind<IArticleService>().To<ArticleService>().WithConstructorArgument(_connectionString);
+            Bind<ICommentService>().To<CommentService>().WithConstructorArgument(_connectionString);
+
         }
 
     }

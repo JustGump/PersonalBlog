@@ -23,7 +23,8 @@ namespace PersonalBlog.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
-            Mapper.Initialize(AutoMapperConfiguration.Initialize());
+           // Mapper.Initialize(AutoMapperConfiguration.Initialize());
+
 
         }
     }

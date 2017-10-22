@@ -31,14 +31,14 @@ namespace PersonalBlog.Domain.Services
         public void Create(CommentDTO commentDTO)
         {
             if (commentDTO == null) throw new ArgumentNullException(nameof(commentDTO));
-            Comment comment = new Comment()
+            Comment newComment = new Comment()
             {
                 Date = DateTime.Now,
                 Profile = _unitOfWork.UserProfileRepository.Find(profile => profile.Id == commentDTO.UserId).SingleOrDefault(),
                 Article = _unitOfWork.ArticleRepository.Get(commentDTO.ArticleId),
                 Body = commentDTO.Body
             };
-            _unitOfWork.CommentRepository.Create(comment);
+            _unitOfWork.CommentRepository.Create(newComment);
             _unitOfWork.Save();
         }
 

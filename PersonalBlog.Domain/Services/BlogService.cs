@@ -13,8 +13,7 @@ using PersonalBlog.Domain.Interfaces;
 
 namespace PersonalBlog.Domain.Services
 {
-    public class BlogService : IBlogService
-        
+    public class BlogService : IBlogService 
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -51,8 +50,7 @@ namespace PersonalBlog.Domain.Services
         /// </summary>
         public IEnumerable<BlogDTO> GetAll()
         {
-            var result = _unitOfWork.BlogRepository.GetAll();
-            return _mapper.Map<IEnumerable<Blog>, IEnumerable<BlogDTO>>(result);          
+            return _mapper.Map<IEnumerable<Blog>, IEnumerable<BlogDTO>>(_unitOfWork.BlogRepository.GetAll());          
         }
 
         public void Dispose()

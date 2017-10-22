@@ -189,11 +189,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AutoMapperModule.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ArticleViewModels.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,11 +242,11 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
-    <Content Include="Views\Article\CreateArticle.cshtml" />
-    <Content Include="Views\Blog\Articles.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Article\CommentArticle.cshtml" />
     <Content Include="Views\Article\Show.cshtml" />
+    <Content Include="Views\Article\CreateArticle.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

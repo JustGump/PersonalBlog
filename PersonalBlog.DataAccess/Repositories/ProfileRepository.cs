@@ -40,6 +40,11 @@ namespace PersonalBlog.DataAccess.Repositories
             return _context.UserProfiles.Where(predicate).ToList();
         }
 
+        public UserProfile FindBy(Expression<Func<UserProfile, bool>> predicate)
+        {
+            return _context.UserProfiles.SingleOrDefault(predicate);
+        }
+
         public void Update(UserProfile item)
         {
             _context.Entry(item).State = EntityState.Modified;

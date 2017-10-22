@@ -11,11 +11,15 @@ namespace PersonalBlog.Web.AutoMapper
 {
     public static class AutoMapperConfiguration
     {
-        public static MapperConfigurationExpression Initialize()
+        public static MapperConfiguration Initialize()
         {
-            var config = new MapperConfigurationExpression();
-            config.AddProfile(new DTOMappingProfile());
-            return config;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DTOMappingProfile());
+                cfg.AddProfile(new ViewModelMappingProfile());
+
+            });
+            return config; 
         }
     }
 }

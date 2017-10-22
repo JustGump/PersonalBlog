@@ -10,6 +10,6 @@ namespace PersonalBlog.DataAccess.Interfaces
 {
     public interface IBlogRepository : IRepository<Blog>
     {
-        Blog FindByTitle(string title);
+        
     }
 }

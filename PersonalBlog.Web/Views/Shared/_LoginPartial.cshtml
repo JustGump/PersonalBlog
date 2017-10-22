@@ -10,7 +10,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
 
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "LogOff", "Account", routeValues: null, htmlAttributes: new { title = "Manage(LogOff)" })
+                @Html.ActionLink("Profile", "UserProfile", "Home", routeValues: null, htmlAttributes: new { title = "Manage(LogOff)" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
@@ -19,7 +19,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><button class="btn-sm" data-toggle="modal" data-target="#myModal">MODAL</button></li>
         <li>
             <a href="@Url.Action("Login", "Account")" id="loginLink">
                 <span class="glyphicon glyphicon-log-in" aria-hidden="true"> </span> Sign in

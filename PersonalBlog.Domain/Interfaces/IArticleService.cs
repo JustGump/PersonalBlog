@@ -14,5 +14,7 @@ namespace PersonalBlog.Domain.Interfaces
         IEnumerable<ArticleDTO> GetAll();
         ArticleDTO GetById(int articleId);
         IEnumerable<ArticleDTO> GetByBlogId(int blogId);
+        IEnumerable<ArticleDTO> GetByTagName(string tagname);
+        IEnumerable<ArticleDTO> GetByUserId(string id);
     }
 }

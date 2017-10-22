@@ -54,9 +54,9 @@ namespace PersonalBlog.DataAccess.Repositories
             }
         }
 
-        public Blog FindByTitle(string title)
+        public Blog FindBy(Expression<Func<Blog, bool>> predicate)
         {
-            return _context.Blogs.FirstOrDefault(blog => blog.Title == title);
+            return _context.Blogs.SingleOrDefault(predicate);
         }
     }
 }

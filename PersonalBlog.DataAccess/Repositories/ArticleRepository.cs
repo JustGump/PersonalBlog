@@ -27,8 +27,8 @@ namespace PersonalBlog.DataAccess.Repositories
         public Article Get(int id)
         {
             var result = _context.Articles
-              /*  .Include(article => article.UserProfile.ApplicationUser)
-                .Include(article => article.Comments)*/
+                .Include(article => article.UserProfile.ApplicationUser)
+                .Include(article => article.Comments)
                 .FirstOrDefault(article => article.ArticleId == id);
 
             return result;
@@ -37,8 +37,8 @@ namespace PersonalBlog.DataAccess.Repositories
         public IEnumerable<Article> GetAll()
         {
             return _context.Articles
-               /* .Include(article => article.UserProfile.ApplicationUser)
-                .Include(article => article.Comments)*/
+                .Include(article => article.UserProfile.ApplicationUser)
+                .Include(article => article.Comments)
                 .OrderByDescending(article => article.Date)
                 .ToList();
         }
@@ -47,12 +47,18 @@ namespace PersonalBlog.DataAccess.Repositories
         public IEnumerable<Article> Find(Expression<Func<Article, bool>> predicate)
         {
             return _context.Articles
-              /*  .Include(article => article.Blog)
+                .Include(article => article.Blog)
                 .Include(article => article.UserProfile.ApplicationUser)
-                .Include(article => article.Comments)*/
+                .Include(article => article.Comments)
+                .Include(article => article.Tags)
                 .Where(predicate)
                 .OrderByDescending(article => article.Date)
                 .ToList();
+        }
+
+        public Article FindBy(Expression<Func<Article, bool>> predicate)
+        {
+          return  _context.Articles.SingleOrDefault(predicate);
         }
 
         public void Update(Article item)

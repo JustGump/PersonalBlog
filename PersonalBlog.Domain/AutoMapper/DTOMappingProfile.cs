@@ -12,32 +12,27 @@ namespace PersonalBlog.Domain.AutoMapper
 {
     public class DTOMappingProfile : Profile
     {
-        public override string ProfileName => "DTOMappingProfile";
-
         public DTOMappingProfile()
         {
                 CreateMap<Article, ArticleDTO>()
-                .ForMember("ArticleId", cfg => cfg.MapFrom(article => article.ArticleId))
-                .ForMember("BlogTitle", cfg => cfg.MapFrom(article => article.Blog.Title))
-                .ForMember("Title", cfg => cfg.MapFrom(article => article.Title))
-                .ForMember("Body", cfg => cfg.MapFrom(article => article.Body))
-                .ForMember("Date", cfg => cfg.MapFrom(article => article.Date))
-                .ForMember("UserProfileId", cfg => cfg.MapFrom(article => article.UserProfileId))
-                .ForMember("UserName", cfg => cfg.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
-                .ForMember("Tags", cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name)))
-                .ForMember("Comments", cfg => cfg.MapFrom(article => article.Comments.Select(comment => $"[{article.Date.ToUniversalTime()}]" + comment.Profile.ApplicationUser.UserName +": "+comment.Body)));
+                .ForMember(dto => dto.BlogTitle, cfg => cfg.MapFrom(article => article.Blog.Title))
+                .ForMember(dto => dto.UserName, cfg => cfg.MapFrom(article => article.UserProfile.ApplicationUser.UserName))
+                .ForMember(dto => dto.Tags, cfg => cfg.MapFrom(article => article.Tags.Select(tag => tag.Name)))
+                .ForMember(dto => dto.Comments, cfg => cfg.MapFrom(article => article.Comments.Select(comment => $"[{article.Date.ToUniversalTime()}]" + comment.Profile.ApplicationUser.UserName +": "+comment.Body)));
 
             base.CreateMap<Blog, BlogDTO>()
-                .ForMember("BlogId", cfg => cfg.MapFrom(blog => blog.BlogId))
-                .ForMember("Title", cfg => cfg.MapFrom(blog => blog.Title))            
-                .ForMember("Description", cfg => cfg.MapFrom(blog => blog.Description))
-                .ForMember("ArticlesCount", cfg => cfg.MapFrom(blog => blog.Articles.Count));
+                .ForMember(dto => dto.ArticlesCount, cfg => cfg.MapFrom(blog => blog.Articles.Count));
 
-            base.CreateMap<UserProfile, UserDTO>();
+            base.CreateMap<UserProfile, UserDTO>()
+                .ForMember(dto => dto.Id, cfg => cfg.MapFrom(profile => profile.Id))
+                .ForMember(dto => dto.UserName, cfg => cfg.MapFrom(profile => profile.ApplicationUser.UserName))
+                .ForMember(dto => dto.Description, cfg => cfg.MapFrom(profile => profile.Description))
+                .ForMember(dto => dto.Email, cfg => cfg.MapFrom(profile => profile.ApplicationUser.Email));
+
             base.CreateMap<Comment, CommentDTO>()
-                .ForMember("UserName", cfg => cfg.MapFrom(comment => comment.Profile.Name))
-                .ForMember("ArticleId", cfg => cfg.MapFrom(comment => comment.Article.ArticleId))
-                .ForMember("ArticleTitle", cfg => cfg.MapFrom(comment => comment.Article.Title));
+                .ForMember(dto => dto.UserName, cfg => cfg.MapFrom(comment => comment.Profile.Name))
+                .ForMember(dto => dto.ArticleId, cfg => cfg.MapFrom(comment => comment.Article.ArticleId))
+                .ForMember(dto => dto.ArticleTitle, cfg => cfg.MapFrom(comment => comment.Article.Title));
         }
 
         

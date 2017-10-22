@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PersonalBlog.Domain.DataTransferObjects;
 using PersonalBlog.Domain.Interfaces;
 using PersonalBlog.Domain.Services;
 using PersonalBlog.Web.Models;
@@ -13,15 +15,24 @@ using PersonalBlog.Web.Models;
 namespace PersonalBlog.Web.Controllers
 {
     public class HomeController : Controller
-    {    
+    {
+        private IUserService UserService => HttpContext.GetOwinContext().GetUserManager<IUserService>();
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+        private readonly IArticleService _articleService;
+        private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
+        public HomeController(IArticleService articleService, ICommentService commentService, IMapper mapper)
+        {
+            _articleService = articleService;
+            _commentService = commentService;
+            _mapper = mapper;
+        }
       
         public ActionResult Index()
         {
-
-            
             return View();
         }
-        //GET:
+   
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -35,22 +46,15 @@ namespace PersonalBlog.Web.Controllers
             return View();
         }
 
-      //  [Authorize]
-     /*   public ActionResult CreateBlog()
+        [Authorize]
+        public ActionResult UserProfile()
         {
-            ViewBag.Message = "CreateBlog";
-            return View();
-        }*/
-/*
-        [HttpPost]
-       // [Authorize]
-        public ActionResult CreateBlog(BlogViewModel model)
-        {
-           var id = User.Identity.GetUserId();
-            BlogService.Create(model.Title, model.Description, id);
-            
-            return View();
+            string authUserId = AuthenticationManager.User.Identity.GetUserId();
+            ProfileViewModel profileModel = _mapper.Map<ProfileViewModel>(UserService.GetUserById(authUserId));
+            profileModel.ArticleViewModel =
+                _mapper.Map<IEnumerable<ArticleViewModel>>(_articleService.GetByUserId(authUserId));
+            return View(profileModel);
         }
-*/
+
     }
 }

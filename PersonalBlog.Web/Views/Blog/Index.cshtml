@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PersonalBlog.Domain.DataTransferObjects.BlogDTO>
+﻿@model IEnumerable<PersonalBlog.Web.Models.BlogViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,12 +12,12 @@
             <div class="panel panel-default col-md-12">
                 <div class="panel-body">
                     
-                    <a href="@Url.Action("Articles", "Blog", new { blogId = item.BlogId })">
-                        <h2>@item.Title #@item.BlogId</h2>
+                    <a href="@Url.Action("Index", "Article", new { blogId = item.BlogId })">
+                        <h2>@item.Title</h2>
                     </a>
-                    <h2>Articles: @item.ArticlesCount</h2>
+                  
                     <hr/>
-                    <p>Discription:@item.Description </p>                                 
+                    <h4>Articles: @item.ArticlesCount</h4>                               
                 </div>
             </div>
         }

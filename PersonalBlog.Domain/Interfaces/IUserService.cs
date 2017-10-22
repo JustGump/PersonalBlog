@@ -14,6 +14,7 @@ namespace PersonalBlog.Domain.Interfaces
     {
         Task<OperationDetails> CreateAsync(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
-        Task SetInitialData(UserDTO adminDto, List<string> roles);
+        //Task SetInitialData(UserDTO adminDto, List<string> roles);
+        UserDTO GetUserById(string id);
     }
 }

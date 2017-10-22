@@ -39,6 +39,11 @@ namespace PersonalBlog.DataAccess.Repositories
             return _context.Comments.Where(predicate).ToList();
         }
 
+        public Comment FindBy(Expression<Func<Comment, bool>> predicate)
+        {
+           return _context.Comments.SingleOrDefault(predicate);
+        }
+
         public void Update(Comment item)
         {
            _context.Entry(item).State = EntityState.Modified;         

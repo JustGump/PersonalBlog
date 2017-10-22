@@ -32,8 +32,6 @@ namespace PersonalBlog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            await SetInitialDataAsync();
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -54,7 +52,7 @@ namespace PersonalBlog.Web.Controllers
                 {
                     IsPersistent = true
                 }, claim);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("UserProfile", "Home");
             }
             return View(model);
         }
@@ -72,7 +70,6 @@ namespace PersonalBlog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
@@ -101,19 +98,6 @@ namespace PersonalBlog.Web.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-        
-        private async Task SetInitialDataAsync()
-        {
-            await UserService.SetInitialData(new UserDTO
-            {
-                Email = "somemail@mail.ru",
-                UserName = "somemail@mail.ru",
-                Password = "ad46D_ewr3",
-                Name = "Семен Семенович Горбунков",
-                Role = "admin",
-            }, new List<string> { "user", "admin" });
-        }
-
 
         #region Helpers
 

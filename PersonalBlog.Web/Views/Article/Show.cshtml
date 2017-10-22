@@ -1,29 +1,66 @@
 ﻿@model PersonalBlog.Web.Models.ArticleViewModel
 
 <div class="container">
-    <div class="row" style="background-color: aqua">
-        <div class="col-lg-8" style="background-color: red">
-            <div class="panel panel-default">
-                <div class="panel-body">
+    <div class="row" >
+        <div class="col-lg-8" style="padding-top: 15px">
+            <div class="panel panel-default" >
+                <div class="panel-body" >
                     <h2>@Model.Title</h2>
-                    <p>@Model.Body</p>
+                    @Model.UserName @Model.Date
+                    <hr />
+                    <h4>@Model.Body</h4>
+                    <hr />
+                    @Model.BlogTitle
+
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <a href="@Url.Action("ByTag", "Article", new { tagName = tag })" class="label label-info">@tag</a>  
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <button class="btn btn-primary pull-right" value="Comment" data-toggle="modal" data-target="#modelComment">Comment</button>
+
+                        using (Html.BeginForm("CommentArticle", "Article", FormMethod.Post, new { @class = "form-group" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <!-- Modal -->
+                            <div class="modal fade" id="modelComment" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Comment</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--body-->
+                                           
+                                            <input type="hidden" name="articleId" value="@Model.ArticleId" />
+
+                                            <textarea class="form-control" name="commentBody" rows="5" id="textArea" style="min-width: 100%; padding-bottom: 5px"></textarea>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+                                                <input type="submit" value="Send" class="btn btn-primary"/>
+                                            </div>
+
+                                            
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                    }
                 </div>
+
             </div>
             <div class="panel panel-default">
-                
-
-
-                @using (Html.BeginForm("CommentArticle", "Article", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="articleId" value="@Model.ArticleId"/>
-
-                    <textarea class="form-control" name="commentBody" rows="3" id="textArea" style="margin: 0px 2.15625px 0px 0px; width: 421px; height: 189px;"></textarea>
-                    <input type="submit" value="Отправить"/>
-                }
-
-
                 <div class="panel-body">
+                    <h4>Comments: (@Model.Comments.Count)</h4>
+                    <hr/>
                     @foreach (var comment in Model.Comments)
                     {
                         <div class="well well-sm">
@@ -33,7 +70,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-1"></div>
+      
     </div>
 </div>
+
 

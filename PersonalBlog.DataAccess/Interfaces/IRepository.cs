@@ -13,6 +13,7 @@ namespace PersonalBlog.DataAccess.Interfaces
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        TEntity FindBy(Expression<Func<TEntity, bool>> predicate);
         void Update(TEntity item);
         void Delete(int id);
     }

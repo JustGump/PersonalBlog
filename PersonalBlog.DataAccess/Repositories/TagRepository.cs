@@ -52,5 +52,10 @@ namespace PersonalBlog.DataAccess.Repositories
                 _context.Tags.Remove(tag);
             }
         }
+
+        public Tag FindBy(Expression<Func<Tag, bool>> predicate)
+        {
+            return _context.Tags.Where(predicate).SingleOrDefault();
+        }
     }
 }
